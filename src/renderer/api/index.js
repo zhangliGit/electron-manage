@@ -1,8 +1,10 @@
 
 import faceApi from './face'
+import videoApi from './video'
 
 const apiList = {
-  ...faceApi
+  ...faceApi,
+  ...videoApi
 }
 
 export default apiList
