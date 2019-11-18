@@ -1,11 +1,18 @@
-import { app, BrowserWindow } from "electron";
+import {
+  app,
+  BrowserWindow
+} from "electron";
 import "../renderer/store";
 
-import { autoUpdater } from 'electron-updater'
-import { ipcMain } from 'electron'
+import {
+  autoUpdater
+} from 'electron-updater'
+import {
+  ipcMain
+} from 'electron'
 
 // 检测更新，在你想要检查更新的时候执行，renderer事件触发后的操作自行编写
-!function updateHandle() {
+! function updateHandle() {
   let message = {
     error: '检查更新出错',
     checking: '正在检查更新……',
@@ -43,9 +50,9 @@ import { ipcMain } from 'electron'
     mainWindow.webContents.send('isUpdateNow')
   });
 
-  ipcMain.on("checkForUpdate",()=>{
-      //执行自动更新检查
-      autoUpdater.checkForUpdates();
+  ipcMain.on("checkForUpdate", () => {
+    //执行自动更新检查
+    autoUpdater.checkForUpdates();
   })
 }()
 
@@ -66,9 +73,9 @@ if (process.env.NODE_ENV !== "development") {
 
 let mainWindow;
 const winURL =
-  process.env.NODE_ENV === "development"
-    ? `http://localhost:9080`
-    : `file://${__dirname}/index.html`;
+  process.env.NODE_ENV === "development" ?
+  `http://localhost:9080` :
+  `file://${__dirname}/index.html`;
 
 function createWindow() {
   /**
@@ -76,10 +83,11 @@ function createWindow() {
    */
   mainWindow = new BrowserWindow({
     useContentSize: true,
-    show:false,
-    minWidth: 1280,
-    minHeight: 990,
-    center:true
+    show: false,
+    minWidth: 1000,
+    minHeight: 600,
+    center: true,
+    frame: false,
   });
 
   mainWindow.maximize()
@@ -96,7 +104,15 @@ function createWindow() {
 }
 
 app.on("ready", createWindow);
-
+ipcMain.on('min', e => mainWindow.minimize());
+ipcMain.on('max', e => {
+  if (mainWindow.isMaximized()) {
+    mainWindow.unmaximize()
+  } else {
+    mainWindow.maximize()
+  }
+});
+ipcMain.on('close', e => mainWindow.close());
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();

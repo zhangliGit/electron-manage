@@ -1,8 +1,8 @@
 {
-  "name": "simple-face-client",
-  "version": "2.0.2",
+  "name": "project-manage",
+  "version": "1.1.0",
   "author": "zhangliGit",
-  "description": "canpoint face",
+  "description": "project-manage",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
@@ -20,11 +20,11 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "http://192.168.1.162:9090/newfile/"
+        "url": "http://192.168.2.247:10031/download/"
       }
     ],
-    "productName": "全品文教人脸识别系统",
-    "appId": "ai2.canpoint.com",
+    "productName": "项目发布管理系统",
+    "appId": "zhangli.app.com",
     "directories": {
       "output": "build"
     },

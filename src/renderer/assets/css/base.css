@@ -1,0 +1,103 @@
+
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
+  padding-top: constant(safe-area-inset-top);
+  padding-left: constant(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
+  padding-bottom: constant(safe-area-inset-bottom);
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+}
+
+/**弹性盒子布局**/
+
+.qui-page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 99;
+  overflow: hidden;
+}
+/** 伸缩盒子盒子 **/
+
+.qui-fx {
+  display: flex;
+}
+
+.qui-fx-ver {
+  display: flex;
+  flex-direction: column;
+}
+
+/**水平垂直居中**/
+.qui-fx-ac-jc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/**垂直居中**/
+.qui-fx-ac {
+  display: flex;
+  align-items: center;
+}
+
+/**垂直居下**/
+.qui-fx-ae {
+  display: flex;
+  align-items: flex-end;
+}
+
+/**水平居中**/
+.qui-fx-jc {
+  display: flex;
+  justify-content: center;
+}
+
+/**水平居右**/
+.qui-fx-je {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/**水平两端对齐**/
+.qui-fx-jsb {
+  display: flex;
+  justify-content: space-between;
+}
+
+/**水平等间距对齐**/
+.qui-fx-jsa {
+  display: flex;
+  justify-content: space-around;
+}
+
+/**水平换行**/
+.qui-fx-wp {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.qui-fx-f1 {
+  min-width: 0px;
+  flex: 1;
+  position: relative;
+}
+
+.qui-fx-f2 {
+  min-width: 0px;
+  flex: 2;
+  position: relative;
+}
+
+.qui-fx-f3 {
+  min-width: 0px;
+  flex: 3;
+  position: relative;
+}

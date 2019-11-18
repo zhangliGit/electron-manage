@@ -1,22 +1,27 @@
-# simple-face-client
+# 基于electron-vue的项目发布管理系统
 
-> canpoint face
+### 安装依赖
 
-#### Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:9080
-npm run dev
-
-# build electron application for production
-npm run build
-
-
+```js
+npm install or yarn
 ```
 
----
+### 启动服务
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[8fae476](https://github.com/SimulatedGREG/electron-vue/tree/8fae4763e9d225d3691b627e83b9e09b56f6c935) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+```js
+npm run dev or yarn run dev
+```
+
+### 项目打包
+
+`绿色版`
+
+```
+npm run build:dir
+```
+
+`安装版`
+
+```
+npm run build
+```

@@ -3,6 +3,7 @@
 process.env.BABEL_ENV = 'renderer'
 
 const path = require('path')
+const theme = require('./theme')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 
@@ -41,7 +42,17 @@ let rendererConfig = {
       },
       {
         test: /\.less$/,
-        use: ['vue-style-loader', 'css-loader', 'less-loader']
+        use: [{
+          loader: 'style-loader',
+        }, {
+          loader: 'css-loader', // translates CSS into CommonJS
+        }, {
+          loader: 'less-loader', // compiles Less to CSS
+          options: {
+            modifyVars: theme,
+            javascriptEnabled: true,
+          },
+        }]
       },
       {
         test: /\.css$/,
