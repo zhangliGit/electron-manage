@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="qui-page qui-fx-ver">
-    <a-modal title="发现新版本" :maskClosable = "false" v-model="versionTag" @ok="downApp" okText="更新" cancelText="下次再说">
+    <a-modal title="发现新版本" :maskClosable = "false" :closable="false" v-model="versionTag" @ok="downApp" okText="更新" cancelText="下次再说">
       <p>1. 整体用户体验优化</p>
       <p>2. 修改已知bug</p>
       <p>3. 新增版本更新记录功能</p>
@@ -12,7 +12,7 @@
     </a-modal>
     <div class="header qui-fx-ac qui-fx-jsb">
       <div class="qui-fx-f1 qui-fx-ac" style="-webkit-app-region: drag; height: 50px">
-        <img :src="logo" class="logo" alt="">全品文教项目发布管理系统V1.0
+        <img :src="logo" class="logo" alt="">全品文教项目发布管理系统V2.0
       </div>
       <div class="icon-rit">
         <span>
@@ -51,13 +51,14 @@
 
 <script>
 import { ipcRenderer } from 'electron'
+import { mapState, mapMutations } from 'vuex'
 import logo from '@a/img/logo.png'
 export default {
   name: "project-mange",
   data () {
     return {
       updateTag: false,
-      versionTag: true,
+      versionTag: false,
       percent: 0,
       logo,
       currentIndex: 0,
@@ -80,33 +81,30 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState('manage', [
+      'total'
+    ])
+  },
   created() {
-    const _this = this;
-    _this.$electron.ipcRenderer.send("checkForUpdate");
-    _this.$electron.ipcRenderer.on("message", (event, text) => {
-      console.log(arguments);
-      _this.tips = text;
-      // alert(text);
+    ipcRenderer.send("checkForUpdate");
+    ipcRenderer.on("message", (event, text) => {
+      if (text === '检测到新版本，正在下载……') {
+      }
     });
-    _this.$electron.ipcRenderer.on("downloadProgress", (event, progressObj) => {
-      console.log(progressObj);
-      _this.downloadPercent = progressObj.percent || 0;
+    ipcRenderer.on("downloadProgress", (event, progressObj) => {
+      this.percent = progressObj.percent || 0;
     });
-    _this.$electron.ipcRenderer.on("isUpdateNow", () => {
-      _this.$electron.ipcRenderer.send("isUpdateNow");
+    ipcRenderer.on("isUpdateNow", () => {
+      this.versionTag = true
     });
   },
   methods: {
+    ...mapMutations('manage', [
+      'updateState'
+    ]),
     downApp () {
-      this.versionTag = false
-      this.updateTag = true
-      this.time = setInterval(() => {
-        this.percent++
-        if (this.percent === 100) {
-          clearInterval(this.time)
-          this.updateTag = false
-        }
-      }, 200)
+      ipcRenderer.send("isUpdateNow");
     },
     min () {
       ipcRenderer.send('min')
@@ -117,7 +115,7 @@ export default {
     close () {
       ipcRenderer.send('close')
     },
-    changeMenu (index, path) {  
+    changeMenu (index, path) {
       this.currentIndex = index
       this.$router.push(`/${path}`)
     }

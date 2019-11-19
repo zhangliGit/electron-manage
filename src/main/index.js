@@ -1,15 +1,13 @@
 import {
   app,
-  BrowserWindow
+  BrowserWindow,
+  ipcMain
 } from "electron";
 import "../renderer/store";
 
 import {
   autoUpdater
 } from 'electron-updater'
-import {
-  ipcMain
-} from 'electron'
 
 // 检测更新，在你想要检查更新的时候执行，renderer事件触发后的操作自行编写
 ! function updateHandle() {
@@ -19,7 +17,7 @@ import {
     updateAva: '检测到新版本，正在下载……',
     updateNotAva: '现在使用的就是最新版本，不用更新',
   };
-  const uploadUrl = "http://192.168.1.162:9090/newfile/"; // 下载地址，不加后面的**.exe
+  const uploadUrl = "http://192.168.2.247:10031/download/"; // 下载地址，不加后面的**.exe
   autoUpdater.setFeedURL(uploadUrl);
   autoUpdater.on('error', function (error) {
     sendUpdateMessage(message.error)
@@ -39,14 +37,9 @@ import {
     mainWindow.webContents.send('downloadProgress', progressObj)
   })
   autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
-
     ipcMain.on('isUpdateNow', (e, arg) => {
-      console.log(arguments);
-      console.log("开始更新");
-      //some code here to handle event
       autoUpdater.quitAndInstall();
     });
-
     mainWindow.webContents.send('isUpdateNow')
   });
 
@@ -82,16 +75,15 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    useContentSize: true,
-    show: false,
-    minWidth: 1000,
+    height: 600,
+    width: 900,
     minHeight: 600,
-    center: true,
+    minWidth: 900,
+    title: '全品文教项目发布系统',
     frame: false,
+    center: true,
+    show: false
   });
-
-  mainWindow.maximize()
-
   mainWindow.loadURL(winURL);
 
   mainWindow.on("closed", () => {

@@ -1,18 +1,18 @@
 # 基于electron-vue的项目发布管理系统
 
-### 安装依赖
+#### 安装依赖
 
 ```js
 npm install or yarn
 ```
 
-### 启动服务
+#### 启动服务
 
 ```js
 npm run dev or yarn run dev
 ```
 
-### 项目打包
+#### 项目打包
 
 `绿色版`
 
@@ -25,3 +25,9 @@ npm run build:dir
 ```
 npm run build
 ```
+
+#### 功能实现
+
++ 全局样式变量
++ vuex
++ 版本更新

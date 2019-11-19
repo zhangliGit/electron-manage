@@ -6,9 +6,9 @@ import store from './store'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 import './assets/css/base.css'
+import './assets/css/antd-reset.css'
 import Tools from './utils/tools'
 Vue.use(Antd)
-if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.prototype.$tools = Tools
 Vue.config.productionTip = false
